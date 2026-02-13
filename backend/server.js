@@ -30,6 +30,8 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
+const app = require('./src/app');
+
 const startServer = async () => {
   try {
     // Connect to database
@@ -38,42 +40,50 @@ const startServer = async () => {
     // Initialize defaults after DB connection
     await initializeDefaults();
 
-    const app = require('./src/app');
-
-    // Start server
-    const PORT = process.env.PORT || 5000;
-    const server = app.listen(PORT, () => {
-      console.log('');
-      console.log('================================================');
-      console.log(`🚀 Flowrite API Server`);
-      console.log(`📡 Environment: ${process.env.NODE_ENV}`);
-      console.log(`🌐 Server running on port ${PORT}`);
-      console.log(`🔗 URL: http://localhost:${PORT}`);
-      console.log(`📚 API Docs: http://localhost:${PORT}/api`);
-      console.log('================================================');
-      console.log('');
-    });
-
-    // Handle unhandled promise rejections
-    process.on('unhandledRejection', (err) => {
-      console.error('UNHANDLED REJECTION! 💥 Shutting down...');
-      console.error(err.name, err.message, err.stack);
-      server.close(() => {
-        process.exit(1);
+    // Start server only if not running on Vercel
+    if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+      const PORT = process.env.PORT || 5000;
+      const server = app.listen(PORT, () => {
+        console.log('');
+        console.log('================================================');
+        console.log(`🚀 Flowrite API Server`);
+        console.log(`📡 Environment: ${process.env.NODE_ENV}`);
+        console.log(`🌐 Server running on port ${PORT}`);
+        console.log(`🔗 URL: http://localhost:${PORT}`);
+        console.log(`📚 API Docs: http://localhost:${PORT}/api`);
+        console.log('================================================');
+        console.log('');
       });
-    });
 
-    // Graceful shutdown
-    process.on('SIGTERM', () => {
-      console.log('👋 SIGTERM received. Shutting down gracefully...');
-      server.close(() => {
-        console.log('💤 Process terminated!');
+      // Handle unhandled promise rejections
+      process.on('unhandledRejection', (err) => {
+        console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+        console.error(err.name, err.message, err.stack);
+        server.close(() => {
+          process.exit(1);
+        });
       });
-    });
+
+      // Graceful shutdown
+      process.on('SIGTERM', () => {
+        console.log('👋 SIGTERM received. Shutting down gracefully...');
+        server.close(() => {
+          console.log('💤 Process terminated!');
+        });
+      });
+    }
   } catch (error) {
     console.error('FAILED TO START SERVER:', error);
     process.exit(1);
   }
 };
 
-startServer();
+// Initialize DB for Serverless environment
+if (process.env.VERCEL) {
+  connectDB().then(() => initializeDefaults());
+} else {
+  startServer();
+}
+
+// Export app for Vercel
+module.exports = app;
