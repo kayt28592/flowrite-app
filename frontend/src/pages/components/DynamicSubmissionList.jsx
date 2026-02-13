@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { dynamicSubmissionAPI } from '../../api/axios';
-import { Button } from '../../components/ui/button';
+import { Button } from '../../components/ui/Button';
 import {
     C,
     DataTable,

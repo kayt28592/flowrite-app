@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+import { Button } from '../../components/ui/Button';
+import { Input } from '../../components/ui/Input';
 import { Camera, Trash2, PenTool, Check, AlertTriangle, FileText, X, ArrowLeft } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import toast from 'react-hot-toast';

@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { jobFormAPI, dynamicSubmissionAPI } from '../../api/axios';
-import { Button } from '../../components/ui/button';
+import { Button } from '../../components/ui/Button';
 import { cn } from '../../lib/utils';
 import { motion } from 'framer-motion';
 import { Logo as FlowLogo } from '../../components/ui/Logo';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/dialog';
 import { Badge } from '../../components/ui/badge';
 import { Calendar, Clock, User, MapPin, Download, Printer, X } from 'lucide-react';
-import { Button } from '../../components/ui/button';
+import { Button } from '../../components/ui/Button';
 import TruckSubmissionView from './TruckSubmissionView';
 import OperatorSubmissionView from './OperatorSubmissionView';
 

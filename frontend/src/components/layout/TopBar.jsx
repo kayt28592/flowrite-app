@@ -1,7 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { Bell, Search, User, ChevronRight, Settings, LogOut } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "../ui/Button";
 
 export const TopBar = ({ toggleSidebar }) => {
     const location = useLocation();

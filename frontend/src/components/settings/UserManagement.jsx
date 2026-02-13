@@ -19,7 +19,7 @@ import {
     StatusBadge
 } from '../ui/DesignSystem';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
-import { Input } from '../ui/input';
+import { Input } from '../ui/Input';
 import { userAPI } from '../../api/axios';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';

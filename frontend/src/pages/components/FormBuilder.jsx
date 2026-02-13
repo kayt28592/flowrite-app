@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Plus, X, GripVertical, Settings2, Eye, Save, Type, Hash, Calendar, List, CheckSquare, PenTool, Image as ImageIcon, Heading } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+import { Button } from '../../components/ui/Button';
+import { Input } from '../../components/ui/Input';
 import { motion, Reorder } from 'framer-motion';
 import toast from 'react-hot-toast';
 

@@ -7,7 +7,7 @@ import TruckPrestartForm from './components/TruckPrestartForm';
 import { formTemplateAPI, dynamicSubmissionAPI } from '../api/axios';
 import toast from 'react-hot-toast';
 import { CheckCircle2, Home } from 'lucide-react';
-import { Button } from '../components/ui/button';
+import { Button } from '../components/ui/Button';
 
 export default function DynamicFormGuest() {
     const { templateId } = useParams();
