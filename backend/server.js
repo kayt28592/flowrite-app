@@ -34,10 +34,11 @@ const app = require('./src/app');
 
 // Start server immediately to satisfy platform health checks
 const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0'; // Important for Docker/Railway environments
 
 const startServer = async () => {
-  const server = app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+  const server = app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running on http://${HOST}:${PORT}`);
     console.log(`📡 Environment: ${process.env.NODE_ENV}`);
   });
 
@@ -49,8 +50,7 @@ const startServer = async () => {
     // Initialize defaults after DB connection
     await initializeDefaults();
   } catch (error) {
-    console.error('❌ Database Connection Failed:', error.message);
-    // Do NOT exit process, keep server alive for health checks
+    console.error('❌ Database Connection Failed (App remains running):', error.message);
   }
 
   // Graceful shutdown
