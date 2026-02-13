@@ -32,54 +32,39 @@ process.on('uncaughtException', (err) => {
 
 const app = require('./src/app');
 
+// Start server immediately to satisfy platform health checks
+const PORT = process.env.PORT || 5000;
+
 const startServer = async () => {
+  const server = app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📡 Environment: ${process.env.NODE_ENV}`);
+  });
+
   try {
-    // Connect to database
+    // Connect to database asynchronously
     await connectDB();
+    console.log('✅ MongoDB Connected Successfully');
 
     // Initialize defaults after DB connection
     await initializeDefaults();
-
-    // Start server only if not running on Vercel
-    if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-      const PORT = process.env.PORT || 5000;
-      const server = app.listen(PORT, () => {
-        console.log('');
-        console.log('================================================');
-        console.log(`🚀 Flowrite API Server`);
-        console.log(`📡 Environment: ${process.env.NODE_ENV}`);
-        console.log(`🌐 Server running on port ${PORT}`);
-        console.log(`🔗 URL: http://localhost:${PORT}`);
-        console.log(`📚 API Docs: http://localhost:${PORT}/api`);
-        console.log('================================================');
-        console.log('');
-      });
-
-      // Handle unhandled promise rejections
-      process.on('unhandledRejection', (err) => {
-        console.error('UNHANDLED REJECTION! 💥 Shutting down...');
-        console.error(err.name, err.message, err.stack);
-        server.close(() => {
-          process.exit(1);
-        });
-      });
-
-      // Graceful shutdown
-      process.on('SIGTERM', () => {
-        console.log('👋 SIGTERM received. Shutting down gracefully...');
-        server.close(() => {
-          console.log('💤 Process terminated!');
-        });
-      });
-    }
   } catch (error) {
-    console.error('FAILED TO START SERVER:', error);
-    process.exit(1);
+    console.error('❌ Database Connection Failed:', error.message);
+    // Do NOT exit process, keep server alive for health checks
   }
+
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('👋 SIGTERM received. Shutting down gracefully...');
+    server.close(() => {
+      console.log('💤 Process terminated!');
+    });
+  });
 };
 
-// Initialize DB for Serverless environment
+// Start logic
 if (process.env.VERCEL) {
+  // Vercel handles start automatically
   connectDB().then(() => initializeDefaults());
 } else {
   startServer();
