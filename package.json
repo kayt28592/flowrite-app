@@ -1,0 +1,39 @@
+{
+  "name": "flowrite-monorepo",
+  "version": "1.0.0",
+  "description": "Flowrite - Production-ready fullstack application",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "cd backend && npm run seed",
+    "test": "node verify_api.js",
+    "test:verify": "echo 'Running System Verification...' && cd backend && npm run seed && echo 'Database Reset & Seeded! Ready for testing at http://localhost:5173'",
+    "deps:backend": "cd backend && npm install",
+    "build:frontend": "cd frontend && npm run build",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run preview"
+  },
+  "keywords": [
+    "fullstack",
+    "react",
+    "nodejs",
+    "mongodb",
+    "enterprise"
+  ],
+  "author": "Flowrite Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/flowrite-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/flowrite-app/issues"
+  },
+  "homepage": "https://github.com/your-username/flowrite-app#readme"
+}

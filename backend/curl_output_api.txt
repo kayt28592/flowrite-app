@@ -1,0 +1,39 @@
+* Host localhost:5001 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying [::1]:5001...
+* Connected to localhost (::1) port 5001
+> GET /api/dockets/stats HTTP/1.1
+> Host: localhost:5001
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+< HTTP/1.1 401 Unauthorized
+< Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+< Cross-Origin-Opener-Policy: same-origin
+< Cross-Origin-Resource-Policy: same-origin
+< Origin-Agent-Cluster: ?1
+< Referrer-Policy: no-referrer
+< Strict-Transport-Security: max-age=15552000; includeSubDomains
+< X-Content-Type-Options: nosniff
+< X-DNS-Prefetch-Control: off
+< X-Download-Options: noopen
+< X-Frame-Options: SAMEORIGIN
+< X-Permitted-Cross-Domain-Policies: none
+< X-XSS-Protection: 0
+< Vary: Origin, Accept-Encoding
+< Access-Control-Allow-Credentials: true
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 80
+< ETag: W/"50-3t9Vtj7o8+HEZmxjLXFgUcRxDww"
+< Date: Thu, 12 Feb 2026 10:44:51 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [80 bytes data]
+100    80  100    80    0     0  56100      0 --:--:-- --:--:-- --:--:-- 80000
+* Connection #0 to host localhost left intact
+{"success":false,"message":"Not authorized to access this route. Please login."}
